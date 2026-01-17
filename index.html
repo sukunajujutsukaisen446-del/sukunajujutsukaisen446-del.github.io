@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Niver da Bia ♣️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(circle at center, #0f7a2f, #043d14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    /* MESA */
+    .mesa {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* CARTA */
+    .carta-container {
+        perspective: 1200px;
+    }
+
+    .carta {
+        width: 200px;
+        height: 300px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 18px;
+        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: transform 1.5s ease;
+    }
+
+    .carta.girar {
+        transform: rotateY(360deg) scale(2.4) translateZ(200px);
+    }
+
+    .canto {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .centro {
+        text-align: center;
+        font-size: 70px;
+        font-weight: bold;
+    }
+
+    /* OVERLAY */
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .overlay.ativo {
+        display: flex;
+    }
+
+    /* MENU */
+    .menu {
+        background: linear-gradient(145deg, #0b5d1e, #0f7a2f);
+        padding: 50px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(0,255,120,0.5);
+        animation: surgir 0.8s ease;
+    }
+
+    @keyframes surgir {
+        from {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .menu h1 {
+        font-size: 2.3em;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+
+    .menu p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+        color: #e0ffe9;
+    }
+
+    .botao {
+        padding: 15px 45px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 50px;
+        background: #00ff88;
+        color: #003b1a;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .botao:hover {
+        background: white;
+        transform: scale(1.05);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="mesa">
+    <div class="carta-container">
+        <div class="carta" id="carta" onclick="animarCarta()">
+            <div class="canto">4♣</div>
+            <div class="centro">♣<br>ZAP</div>
+            <div class="canto" style="transform: rotate(180deg)">4♣</div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay">
+        <div class="menu">
+            <h1>♣️ Seja bem-vindo</h1>
+            <p>no niver da Bia ❤️</p>
+            <button class="botao">CONVIDADO</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function animarCarta() {
+        const carta = document.getElementById("carta");
+        const overlay = document.getElementById("overlay");
+
+        carta.classList.add("girar");
+
+        setTimeout(() => {
+            overlay.classList.add("ativo");
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>
