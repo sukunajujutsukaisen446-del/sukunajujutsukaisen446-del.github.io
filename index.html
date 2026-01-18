@@ -1,172 +1,130 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Niver da Bia ♣️</title>
+<title>Niver da Bia ♠️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    body {
-        width: 100%;
-        height: 100vh;
-        background: radial-gradient(circle at center, #0f7a2f, #043d14);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        overflow: hidden;
-    }
+body {
+    height: 100vh;
+    background: radial-gradient(circle, #0b3d0b, #021a02);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
 
-    /* MESA */
-    .mesa {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+/* CARTA */
+.carta {
+    width: 180px;
+    height: 260px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    cursor: pointer;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    transition: transform 1.2s ease;
+}
 
-    /* CARTA */
-    .carta-container {
-        perspective: 1200px;
-    }
+/* GIRA A CARTA */
+.girar {
+    transform: rotateY(360deg) scale(1.1);
+}
 
-    .carta {
-        width: 200px;
-        height: 300px;
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 18px;
-        cursor: pointer;
-        transform-style: preserve-3d;
-        transition: transform 1.5s ease;
-    }
+/* TREMIDA DA TELA */
+@keyframes tremer {
+    0% { transform: translate(0); }
+    20% { transform: translate(-10px, 0); }
+    40% { transform: translate(10px, 0); }
+    60% { transform: translate(-10px, 0); }
+    80% { transform: translate(10px, 0); }
+    100% { transform: translate(0); }
+}
 
-    .carta.girar {
-        transform: rotateY(360deg) scale(2.4) translateZ(200px);
-    }
+.tremer {
+    animation: tremer 0.4s;
+}
 
-    .canto {
-        font-size: 22px;
-        font-weight: bold;
-    }
+/* OVERLAY / MENU */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
 
-    .centro {
-        text-align: center;
-        font-size: 70px;
-        font-weight: bold;
-    }
+.overlay.ativo {
+    opacity: 1;
+    pointer-events: all;
+}
 
-    /* OVERLAY */
-    .overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.85);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-    }
+.overlay h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
 
-    .overlay.ativo {
-        display: flex;
-    }
-
-    /* MENU */
-    .menu {
-        background: linear-gradient(145deg, #0b5d1e, #0f7a2f);
-        padding: 50px;
-        border-radius: 25px;
-        text-align: center;
-        box-shadow: 0 0 40px rgba(0,255,120,0.5);
-        animation: surgir 0.8s ease;
-    }
-
-    @keyframes surgir {
-        from {
-            opacity: 0;
-            transform: scale(0.7);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .menu h1 {
-        font-size: 2.3em;
-        margin-bottom: 15px;
-        color: #fff;
-    }
-
-    .menu p {
-        font-size: 1.2em;
-        margin-bottom: 30px;
-        color: #e0ffe9;
-    }
-
-    .botao {
-        padding: 15px 45px;
-        font-size: 1.2em;
-        border: none;
-        border-radius: 50px;
-        background: #00ff88;
-        color: #003b1a;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .botao:hover {
-        background: white;
-        transform: scale(1.05);
-    }
+.overlay button {
+    padding: 15px 40px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background: #e63946;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
 </style>
 </head>
 
 <body>
 
-<div class="mesa">
-    <div class="carta-container">
-        <div class="carta" id="carta" onclick="animarCarta()">
-            <div class="canto">4♣</div>
-            <div class="centro">♣<br>ZAP</div>
-            <div class="canto" style="transform: rotate(180deg)">4♣</div>
-        </div>
-    </div>
+<!-- CARTA -->
+<div class="carta" id="carta" onclick="animarCarta()">🂡</div>
 
-    <div class="overlay" id="overlay">
-        <div class="menu">
-            <h1>♣️ Seja bem-vindo</h1>
-            <p>no niver da Bia ❤️</p>
-            <button class="botao">CONVIDADO</button>
-        </div>
-    </div>
+<!-- MENU -->
+<div class="overlay" id="overlay">
+    <h1>Seja bem-vindo no niver da Bia ❤️</h1>
+    <button>Convidado</button>
 </div>
 
 <script>
-    function animarCarta() {
-        const carta = document.getElementById("carta");
-        const overlay = document.getElementById("overlay");
+function animarCarta() {
+    const carta = document.getElementById("carta");
+    const overlay = document.getElementById("overlay");
 
-        carta.classList.add("girar");
+    // Tremida
+    document.body.classList.add("tremer");
+    setTimeout(() => {
+        document.body.classList.remove("tremer");
+    }, 400);
 
-        setTimeout(() => {
-            overlay.classList.add("ativo");
-        }, 1500);
-    }
+    // Giro da carta
+    carta.classList.add("girar");
+
+    // Abre menu depois da animação
+    setTimeout(() => {
+        overlay.classList.add("ativo");
+    }, 1200);
+}
 </script>
 
 </body>
