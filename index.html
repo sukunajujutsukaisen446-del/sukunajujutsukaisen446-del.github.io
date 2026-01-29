@@ -1,162 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Niver da Bia ♠️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niver da Bia 🎉</title>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-body {
-    height: 100vh;
-    background: radial-gradient(circle, #0b3d0b, #021a02);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    perspective: 1200px;
-}
+    .card {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      animation: aparecer 1s ease;
+    }
 
-/* CONTAINER 3D */
-.carta-container {
-    width: 180px;
-    height: 260px;
-    transform-style: preserve-3d;
-}
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 10px;
+    }
 
-/* CARTA 3D */
-.carta {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    transition: transform 1.2s ease;
-}
+    h2 {
+      color: #333;
+      margin-top: 0;
+      font-weight: normal;
+    }
 
-/* FACES */
-.face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 14px;
-    backface-visibility: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-}
+    p {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-/* FRENTE */
-.frente {
-    background: white;
-    color: black;
-}
+    .emoji {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
 
-/* VERSO */
-.verso {
-    background: linear-gradient(135deg, #b00000, #600000);
-    transform: rotateY(180deg);
-    color: white;
-    font-size: 40px;
-}
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #ff4d6d;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
 
-/* GIRO 3D */
-.girar {
-    transform: rotateY(360deg) rotateX(10deg);
-}
+    .btn:hover {
+      background: #e63956;
+      transform: scale(1.05);
+    }
 
-/* TREMIDA */
-@keyframes tremer {
-    0% { transform: translate(0); }
-    20% { transform: translate(-10px, 0); }
-    40% { transform: translate(10px, 0); }
-    60% { transform: translate(-10px, 0); }
-    80% { transform: translate(10px, 0); }
-    100% { transform: translate(0); }
-}
-
-.tremer {
-    animation: tremer 0.4s;
-}
-
-/* OVERLAY */
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: white;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.6s;
-}
-
-.overlay.ativo {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.overlay h1 {
-    font-size: 28px;
-    margin-bottom: 30px;
-}
-
-.overlay button {
-    padding: 15px 40px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    background: #e63946;
-    color: white;
-    cursor: pointer;
-}
-</style>
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- CARTA 3D -->
-<div class="carta-container">
-    <div class="carta" id="carta" onclick="animarCarta()">
-        <div class="face frente">🂡</div>
-        <div class="face verso">TRUCO</div>
-    </div>
-</div>
+  <div class="card">
+    <div class="emoji">🎂</div>
+    <h1>TRUCO</h1>
+    <h2>Seja bem-vindo ao niver da Bia ❤️</h2>
 
-<!-- MENU -->
-<div class="overlay" id="overlay">
-    <h1>Seja bem-vindo no niver da Bia ❤️</h1>
-    <button>Convidado</button>
-</div>
+    <p>
+      Sua presença vai deixar esse dia ainda mais especial.
+      Prepare-se para risadas, comida boa e muita alegria!
+    </p>
 
-<script>
-function animarCarta() {
-    const carta = document.getElementById("carta");
-    const overlay = document.getElementById("overlay");
+    <p><strong>Convidado especial ✨</strong></p>
 
-    document.body.classList.add("tremer");
-    setTimeout(() => {
-        document.body.classList.remove("tremer");
-    }, 400);
-
-    carta.classList.add("girar");
-
-    setTimeout(() => {
-        overlay.classList.add("ativo");
-    }, 1300);
-}
-</script>
+    <a class="btn" href="#">Confirmar Presença</a>
+  </div>
 
 </body>
 </html>
